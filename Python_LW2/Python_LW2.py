@@ -70,9 +70,9 @@ collection = get_db_collection()
 
 # load_data_into_db(collection)
 
-print_query(query_all(collection))
-print_query(query_task3(collection))
-print_one_from_query(query_task4(collection))
+# print_one_from_query(query_all(collection))
+# print_one_from_query(query_task3(collection))
+# print_one_from_query(query_task4(collection))
 
 
 #       1.Sukurkite restoranų duomenų rinkinį (pridedamas zip failas)
