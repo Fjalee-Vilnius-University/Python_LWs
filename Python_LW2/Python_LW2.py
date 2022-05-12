@@ -99,6 +99,23 @@ def query_task6(collection):
     
     return collection.aggregate(query)
 
+def query_task7(collection):
+    q_from = {
+        "restaurant_id": {
+            "$regex": '.*?',
+        }
+    }
+    q_select = {
+        "restaurant_id": 1,
+        "borough": 1,
+        "cuisine": 1
+    }
+    q_sort = [
+        ("cuisine", pymongo.ASCENDING),
+        ("borough", pymongo.DESCENDING)
+    ]
+    return collection.find(q_from, q_select).sort(q_sort)
+
 collection = get_db_collection()
 
 # load_data_into_db(collection)
@@ -107,7 +124,8 @@ collection = get_db_collection()
 # print_few_from_query(query_task3(collection), 1)
 # print_few_from_query(query_task4(collection), 1)
 # print_few_from_query(query_task5(collection), 1)
-print_few_from_query(query_task6(collection), 2)
+# print_few_from_query(query_task6(collection), 2)
+print_few_from_query(query_task7(collection), 10)
 
 
 
@@ -117,4 +135,4 @@ print_few_from_query(query_task6(collection), 2)
 #       4.Parašykite užklausą, kuri atvaizduotų laukus - restaurant_id, name, borough ir cuisine -, bet nerodytų lauko field_id visiems dokumentams
 #       5.Parašykite užklausą, kuri parodytų visus miestelio Bronx restoranus
 #       6.Parašykite užklausą, kuri parodytų restoranus su įvertinimu tarp 80 ir 100.
-# 7.Parašykite užklausą, kad cuisine būtų išdėstyta didėjimo tvarka, o borough - mažėjimo.
+#       7.Parašykite užklausą, kad cuisine būtų išdėstyta didėjimo tvarka, o borough - mažėjimo.
