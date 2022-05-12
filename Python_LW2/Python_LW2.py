@@ -80,6 +80,25 @@ def query_task5(collection):
     }
     return collection.find(q_from, q_select)
 
+
+def query_task6(collection):
+    query = [{
+        "$match": {
+            "$expr": {
+                "$and": [{
+                    "$gte": [
+                        {"$sum": "$grades.score"}, 80]},
+                        {"$lte": [
+                            {"$sum": "$grades.score"},
+                            100
+                        ]
+                    }]
+                }
+            }
+        }]
+    
+    return collection.aggregate(query)
+
 collection = get_db_collection()
 
 # load_data_into_db(collection)
@@ -87,7 +106,8 @@ collection = get_db_collection()
 # print_few_from_query(query_all(collection), 1)
 # print_few_from_query(query_task3(collection), 1)
 # print_few_from_query(query_task4(collection), 1)
-print_few_from_query(query_task5(collection), 1)
+# print_few_from_query(query_task5(collection), 1)
+print_few_from_query(query_task6(collection), 2)
 
 
 
@@ -95,6 +115,6 @@ print_few_from_query(query_task5(collection), 1)
 #       2.Parašykite užklausą atvaizduojančią visus dokumentus iš restoranų rinkinio
 #       3.Parašykite užklausą, kuri atvaizduotų laukus - restaurant_id, name, borough ir cuisine - visiems dokumentams
 #       4.Parašykite užklausą, kuri atvaizduotų laukus - restaurant_id, name, borough ir cuisine -, bet nerodytų lauko field_id visiems dokumentams
-# 5.Parašykite užklausą, kuri parodytų visus miestelio Bronx restoranus
-# 6.Parašykite užklausą, kuri parodytų restoranus su įvertinimu tarp 80 ir 100.
+#       5.Parašykite užklausą, kuri parodytų visus miestelio Bronx restoranus
+#       6.Parašykite užklausą, kuri parodytų restoranus su įvertinimu tarp 80 ir 100.
 # 7.Parašykite užklausą, kad cuisine būtų išdėstyta didėjimo tvarka, o borough - mažėjimo.
