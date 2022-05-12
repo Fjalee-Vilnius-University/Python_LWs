@@ -6,7 +6,7 @@ import os
 
 DATA_JSON_PATH = os.path.join(sys.path[0], 'retaurants.json')
 
-def loadDataIntoDB(collection):
+def load_data_into_db(collection):
     data = []
     with open(DATA_JSON_PATH) as f:
         for line in f:
@@ -15,16 +15,16 @@ def loadDataIntoDB(collection):
     data
     collection.insert_many(data)
 
-def getDbCollection():
+def get_db_collection():
     cluster = MongoClient('mongodb+srv://sa:sa@cluster0.n9p5p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     db = cluster["lw2"]
     return db["lw2"]
 
-def printQuery(query):
+def print_query(query):
     for line in query:
         print(line)
 
-def queryAll(collection):
+def query_all(collection):
     query = {
         "restaurant_id": {
             "$regex": '.*?',
@@ -32,11 +32,11 @@ def queryAll(collection):
     }
     return collection.find(query)
 
-collection = getDbCollection()
-# loadDataIntoDB(collection)
+collection = get_db_collection()
+# load_data_into_db(collection)
 
-printQuery(queryAll(collection))
-printQuery(queryAll(collection))
+print_query(query_all(collection))
+print_query(query_all(collection))
 
 
 #       Sukurkite restoranų duomenų rinkinį (pridedamas zip failas)
