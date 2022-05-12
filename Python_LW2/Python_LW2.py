@@ -51,12 +51,28 @@ def query_task3(collection):
     }
     return collection.find(q_from, q_select)
 
+def query_task4(collection):
+    q_from = {
+        "restaurant_id": {
+            "$regex": '.*?',
+        }
+    }
+    q_select = {
+        "restaurant_id": 1,
+        "name": 1,
+        "borough": 1,
+        "cuisine": 1,
+        "_id": 0
+    }
+    return collection.find(q_from, q_select)
+
 collection = get_db_collection()
 
 # load_data_into_db(collection)
 
 print_query(query_all(collection))
 print_query(query_task3(collection))
+print_one_from_query(query_task4(collection))
 
 
 #       1.Sukurkite restoranų duomenų rinkinį (pridedamas zip failas)
