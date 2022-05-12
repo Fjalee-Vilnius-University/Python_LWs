@@ -24,10 +24,11 @@ def print_query(query):
     for line in query:
         print(line)
 
-def print_one_from_query(query):
-    for line in query:
+def print_few_from_query(query, count):
+    for i, line in enumerate(query):
         print(line)
-        break
+        if (i == count-1):
+            break
 
 def query_all(collection):
     query = {
@@ -83,10 +84,10 @@ collection = get_db_collection()
 
 # load_data_into_db(collection)
 
-# print_one_from_query(query_all(collection))
-# print_one_from_query(query_task3(collection))
-# print_one_from_query(query_task4(collection))
-print_one_from_query(query_task5(collection))
+# print_few_from_query(query_all(collection), 1)
+# print_few_from_query(query_task3(collection), 1)
+# print_few_from_query(query_task4(collection), 1)
+print_few_from_query(query_task5(collection), 1)
 
 
 
