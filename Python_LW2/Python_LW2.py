@@ -80,7 +80,6 @@ def query_task5(collection):
     }
     return collection.find(q_from, q_select)
 
-
 def query_task6(collection):
     query = [{
         "$match": {
@@ -120,14 +119,12 @@ collection = get_db_collection()
 
 # load_data_into_db(collection)
 
-# print_few_from_query(query_all(collection), 1)
-# print_few_from_query(query_task3(collection), 1)
-# print_few_from_query(query_task4(collection), 1)
-# print_few_from_query(query_task5(collection), 1)
-# print_few_from_query(query_task6(collection), 2)
-print_few_from_query(query_task7(collection), 10)
-
-
+print_query(query_all(collection))
+print_query(query_task3(collection))
+print_query(query_task4(collection))
+print_query(query_task5(collection))
+print_query(query_task6(collection))
+print_query(query_task7(collection))
 
 #       1.Sukurkite restoranų duomenų rinkinį (pridedamas zip failas)
 #       2.Parašykite užklausą atvaizduojančią visus dokumentus iš restoranų rinkinio
