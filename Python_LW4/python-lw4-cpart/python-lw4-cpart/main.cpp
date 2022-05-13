@@ -1,43 +1,40 @@
 #include <stdio.h>
 #include <Python.h>
 
-int testFind(int num1, int num2) {
+int testFind(int n) {
     return 19;
 }
 
- static PyObject * testFunc(PyObject *self, PyObject *args){ 
-    //  const char *command;
-    int sts, num1, num2;
-    if (!PyArg_ParseTuple(args, "il", &num1, &num2)) 
+ static PyObject * fibonacci(PyObject *self, PyObject *args){ 
+    int sts, n;
+    if (!PyArg_ParseTuple(args, "i", &n)) 
        return NULL;
-    sts = testFind(num1, num2);
-    return PyLong_FromLong(sts);
-    // sts = system(command);
+    sts = testFind(n);
+    return Py_BuildValue("i", PyLong_FromLong(sts));
     // if (sts < 0) { 
     //    //PyErr_SetString(spamError,&"System&command&failed");&
     //    return NULL; 
     // } 
-     //return Py_BuildValue("i", sts); 
  }
 
  static PyObject* version(PyObject* self) {
-     return Py_BuildValue("s", "Version 0.01");
+     return Py_BuildValue("s", "Version 1.0");
  }
 
- static PyMethodDef Examples[] = {
-     {"testFunc", testFunc, METH_VARARGS, "testString"},
+ static PyMethodDef myMethods[] = {
+     {"fibonacci", fibonacci, METH_VARARGS, "function gets nth number from fibonacci sequal"},
      {"version", (PyCFunction)version, METH_NOARGS, "returns the version"},
      {NULL, NULL, 0, NULL}
  };
 
- static struct PyModuleDef Example = {
+ static struct PyModuleDef myMethod = {
     PyModuleDef_HEAD_INIT,
-    "Example",
-    "test Module",
+    "main",
+    "my C module",
     -1,
-    Examples
+    myMethods
  };
 
  PyMODINIT_FUNC PyInit_Example(void){
-     return PyModule_Create(&Example);
+     return PyModule_Create(&myMethod);
  }
