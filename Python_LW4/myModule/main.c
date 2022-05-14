@@ -2,7 +2,7 @@
 #include <Python.h>
 
 int main(){
-printf("yes");
+    printf("yes");
 }
 
 int testFind(int n) {
