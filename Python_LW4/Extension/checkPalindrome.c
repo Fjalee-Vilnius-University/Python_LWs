@@ -1,30 +1,31 @@
 #include <Python.h>
-
+#include<conio.h>
+#include<string.h>
 #include<stdio.h>
 
-#include<conio.h>
+static PyObject *errStr;
 
-#include<string.h>
-
-static PyObject *emptyStringError;
-
-
-static PyObject * method_checkPalindrome(PyObject * self, PyObject * args) {
-  char * str = NULL;
-  int temp = 0;
+static PyObject * fibonacci_nth_nm(PyObject *self, PyObject *args)
+{
+  char *str = NULL;
   int len = 0;
+  int temp = 0;
 
-  /* Parse arguments */
-  if (!PyArg_ParseTuple(args,"s", & str)) {
+  if (!PyArg_ParseTuple(args, "s", &str))
+  {
     return NULL;
   }
 
   len = strlen(str);
-  if(len == 0){
-    PyErr_Format(emptyStringError,"Found empty string!");
+  if(len == 0)
+  {
+    PyErr_Format(errStr, "Can't handle empty string");
   }
-  for(int i = 0; i < len; i++) {
-    if (str[i] != str[len - i - 1]) {
+
+  for(int i = 0; i < len; i++)
+  {
+    if (str[i] != str[len - i - 1])
+    {
       temp = 1;
       break;
     }
@@ -33,28 +34,29 @@ static PyObject * method_checkPalindrome(PyObject * self, PyObject * args) {
   return PyLong_FromLong(temp);
 }
 
-static PyMethodDef checkPalindromeMethods[] = {
-    {"check_for_palindrome", method_checkPalindrome, METH_VARARGS, "Python interface for checkPalindrome function"},
-    {NULL, NULL, 0, NULL}
+static PyMethodDef fibonacciModuleMethods[] = {
+  {"fibonacci_nth_nm", fibonacci_nth_nm, METH_VARARGS, "module for finding fibonacci nth number"},
+  {NULL, NULL, 0, NULL}
 };
 
 
-static struct PyModuleDef checkPalindromeModule = {
-    PyModuleDef_HEAD_INIT,
-    "checkPalindrome",
-    "Python interface for checkPalindrome function",
-    -1,
-    checkPalindromeMethods
+static struct PyModuleDef fibonacciNthNmModule = {
+  PyModuleDef_HEAD_INIT,
+  "getFibonacciNthNm",
+  "function for finding fibonacci nth number",
+  -1,
+  fibonacciModuleMethods
 };
 
-PyMODINIT_FUNC PyInit_checkPalindrome(void) {
-    return PyModule_Create(&checkPalindromeModule);
+PyMODINIT_FUNC PyInit_checkPalindrome(void)
+{
+  return PyModule_Create(&fibonacciNthNmModule);
 }
 
-PyMODINIT_FUNC PyInit_empty(void) {
-  PyObject * m = PyModule_Create( &checkPalindromeModule);
-  emptyStringError = PyErr_NewException("emptyString.error", NULL,
-    NULL);
-  Py_INCREF(emptyStringError);
-  PyModule_AddObject(m, "error", emptyStringError);
+PyMODINIT_FUNC PyInit_empty(void)
+{
+  PyObject * module = PyModule_Create( &fibonacciNthNmModule);
+  errStr = PyErr_NewException("errStr.error", NULL, NULL);
+  Py_INCREF(errStr);
+  PyModule_AddObject(module, "error", errStr);
 }
