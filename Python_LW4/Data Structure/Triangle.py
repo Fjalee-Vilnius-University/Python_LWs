@@ -13,7 +13,17 @@ class Vector(object):
         else: raise TypeError("Error, triangle expects float sides lengths.")
     def __str__(self):
         return "triangle with sides " + str(self.l1) + " " + str(self.l2) + " " + str(self.l3)
-        
-    
 
+    def perimeter(self):
+        return self.l1 + self.l2 + self.l3 
+
+    def area(self):
+        s = self.perimeter()/2
+        a = self.l1
+        b = self.l2
+        c = self.l3
+        return (s*(s-a)*(s-b)*(s-c)) ** 0.5
+        
 a = Vector(2.0, 3.0, 4.0)
+print(a.perimeter())
+print(a.area())
