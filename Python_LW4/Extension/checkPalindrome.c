@@ -3,35 +3,25 @@
 #include<string.h>
 #include<stdio.h>
 
-static PyObject *errStr;
+static PyObject *moduleError;
 
 static PyObject * fibonacci_nth_nm(PyObject *self, PyObject *args)
 {
-  char *str = NULL;
-  int len = 0;
-  int temp = 0;
+  int n = 0;
 
-  if (!PyArg_ParseTuple(args, "s", &str))
+  if (!PyArg_ParseTuple(args, "i", &n))
   {
+    PyErr_Format(moduleError, "Can't parse input");
     return NULL;
   }
 
-  len = strlen(str);
-  if(len == 0)
+  if(n < 0)
   {
-    PyErr_Format(errStr, "Can't handle empty string");
+    PyErr_Format(moduleError, "Can't handle negative numbers");
+    return NULL;
   }
 
-  for(int i = 0; i < len; i++)
-  {
-    if (str[i] != str[len - i - 1])
-    {
-      temp = 1;
-      break;
-    }
-  }
-
-  return PyLong_FromLong(temp);
+  return PyLong_FromLong(n);
 }
 
 static PyMethodDef fibonacciModuleMethods[] = {
@@ -56,7 +46,7 @@ PyMODINIT_FUNC PyInit_checkPalindrome(void)
 PyMODINIT_FUNC PyInit_empty(void)
 {
   PyObject * module = PyModule_Create( &fibonacciNthNmModule);
-  errStr = PyErr_NewException("errStr.error", NULL, NULL);
-  Py_INCREF(errStr);
-  PyModule_AddObject(module, "error", errStr);
+  moduleError = PyErr_NewException("module.error", NULL, NULL);
+  Py_INCREF(moduleError);
+  PyModule_AddObject(module, "error", moduleError);
 }
