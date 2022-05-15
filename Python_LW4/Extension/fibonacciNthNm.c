@@ -53,7 +53,7 @@ static struct PyModuleDef fibonacciNthNmModule = {
   fibonacciModuleMethods
 };
 
-PyMODINIT_FUNC PyInit_checkPalindrome(void)
+PyMODINIT_FUNC PyInit_fibonacciNthNm(void)
 {
   return PyModule_Create(&fibonacciNthNmModule);
 }

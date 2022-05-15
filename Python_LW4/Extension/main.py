@@ -1,4 +1,4 @@
-import checkPalindrome
+import fibonacciNthNm
 
-result = checkPalindrome.fibonacci_nth_nm(10)
+result = fibonacciNthNm.fibonacci_nth_nm(10)
 print(result)
